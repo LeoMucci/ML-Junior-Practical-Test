@@ -1,80 +1,73 @@
 # ML Junior Practical Test
 
-Welcome to **ML Junior Practical Test**!
+Hey there! Welcome to **ML Junior Practical Test**! 😃
 
-This project demonstrates a Machine Learning pipeline for syndrome classification (`syndromeId`) based on 320-dimensional embeddings. Below, you will find usage instructions, module descriptions, and tips for executing and understanding this project.
+This is a Machine Learning project where we try to classify syndromes (`syndromeId`) using some fancy 320-dimensional embeddings. Below, I'll guide you through what this project does, how you can run it, and what results you can expect.
 
 ## 📌 Table of Contents
 
-- [Overview](#overview)
-- [Folder Structure](#folder-structure)
-- [Installation](#installation)
-- [How to Run](#how-to-run)
-- [Execution Example](#execution-example)
-- [Main Features](#main-features)
+- [What’s This About?](#whats-this-about)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Running the Project](#running-the-project)
+- [Example Output](#example-output)
+- [Cool Features](#cool-features)
 - [Expected Results](#expected-results)
-- [Possible Improvements](#possible-improvements)
-- [Credits and Contact](#credits-and-contact)
+- [What Could Be Better?](#what-could-be-better)
+- [Who Made This?](#who-made-this)
 
-## 🎯 Overview
+## 🎯 What’s This About?
 
-The main objective of this project is to predict which syndrome a set of embeddings belongs to. For this, we use:
+This project is all about predicting which syndrome a set of embeddings belongs to. Here’s what we do:
 
-- **Pre-Processing** (flatten hierarchical data).
-- **Exploratory Analysis** (statistics and class distribution).
-- **Visualization** (dimensionality reduction via t-SNE).
-- **Classification** (KNN with Euclidean and Cosine distances).
-- **Evaluation** (F1-Score, multi-class AUC, Top-k Accuracy).
+- **Pre-process the data** (flatten hierarchical structures).
+- **Explore the dataset** (check class distributions and stats).
+- **Visualize** it using **t-SNE** (so it looks nice and pretty).
+- **Classify** using **KNN** (with Euclidean & Cosine distances).
+- **Evaluate performance** using **F1-Score, AUC, and Top-k Accuracy**.
 
-## 📂 Folder Structure
+## 📂 Project Structure
 
 ```bash
 ML-Junior-Practical-Test/
 ├── data/
 │   └── mini_gm_public_v0.1.p   # Dataset in pickle format (hierarchical)
 ├── src/
-│   ├── main.py                 # Main script orchestrating the pipeline
-│   ├── dataPreprocessing.py     # Dataset loading and flattening
-│   ├── dataExploration.py       # Exploratory Data Analysis (EDA)
-│   ├── visualization.py         # Functions for t-SNE and other visualizations
-│   ├── knnClassification.py     # Classification using KNN + cross-validation
-│   ├── metricsUtils.py          # Metric implementations (Top-k, AUC, etc.)
-├── requirements.txt             # Required libraries
-├── README.md                    # This file
-├── ML_Report.pdf                # Complete report (methodology, results)
+│   ├── main.py                 # The boss script that runs everything
+│   ├── dataPreprocessing.py     # Loads and flattens dataset
+│   ├── dataExploration.py       # EDA (Exploratory Data Analysis)
+│   ├── visualization.py         # Handles t-SNE and visualizations
+│   ├── knnClassification.py     # Runs KNN and cross-validation
+│   ├── metricsUtils.py          # Calculates Top-k, AUC, etc.
+├── requirements.txt             # Libraries you need
+├── README.md                    # This file!
+├── ML_Report.pdf                # Detailed report with methodology & results
 └── Interpretation_Answers.pdf   # Answers to interpretation questions
 ```
 
-## 🛠 Installation
+## 🛠 Getting Started
 
-1. Clone this repository:
+1. Clone this repo:
 
    ```bash
    git clone https://github.com/your-username/ML-Junior-Practical-Test.git
    cd ML-Junior-Practical-Test
    ```
 
-2. Create a virtual environment (optional but recommended):
+2. Set up a virtual environment (recommended):
 
    ```bash
    python -m venv venv
-   source venv/bin/activate  # Linux/Mac
    .\venv\Scripts\activate   # Windows
    ```
 
-3. Install dependencies:
+3. Install all dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. If you experience issues with NumPy, try:
-
-   ```bash
-   pip install --upgrade numpy
-   ```
-
-## 🚀 How to Run
+## 🚀 Running the Project
 
 1. Navigate to the `src/` folder:
 
@@ -88,9 +81,9 @@ ML-Junior-Practical-Test/
    python main.py
    ```
 
-During execution, statistics, graphs, and metrics will be displayed in the terminal.
+You’ll see some stats, cool graphs, and performance metrics pop up in your terminal. 🎉
 
-## 📊 Execution Example
+## 📊 Example Output
 
 ```bash
 First rows of the DataFrame:
@@ -102,55 +95,75 @@ First rows of the DataFrame:
 Shape of DataFrame: (1116, 4)
 X shape: (1116, 320) | y shape: (1116,)
 
+    [CLASS DISTRIBUTION BAR CHART]
+
+t-SNE Visualization: [Displayed in a separate window]
+
+Euclidean Results
++----+-----------+
+|  k | F1-Score  |
+|----+-----------|
+|  1 | 0.6307    |
+|  2 | 0.5875    |
+|  ..| ...       |
+| 15 | 0.7346    |
++----+-----------+
+
+Cosine Results
++----+-----------+
+|  k | F1-Score  |
+|----+-----------|
+|  1 | 0.6755    |
+|  7 | 0.7794    |
+| ...| ...       |
++----+-----------+
+
+Best k (Euclidean): 15
+Best k (Cosine): 7
+
 Top-5 Accuracy (Euclidean): 0.9688
 Top-5 Accuracy (Cosine): 0.9420
 ```
 
-## 🔍 Main Features
+## 🔥 Cool Features
 
-### 📥 Data Loading and Pre-Processing
+### 📥 Data Handling
+- Loads dataset from a pickle file.
+- Converts it into a DataFrame with columns (`syndromeId`, `subjectId`, `imageId`, `embeddingVector`).
 
-- Load dataset in pickle format.
-- Convert to `DataFrame` with columns (`syndromeId`, `subjectId`, `imageId`, `embeddingVector`).
-
-### 📊 Exploratory Data Analysis (EDA)
-
-- Dataset statistics.
-- Class distribution (bar chart).
+### 📊 Data Exploration
+- Displays dataset statistics.
+- Plots a class distribution bar chart.
 
 ### 🎨 Visualization (t-SNE)
-
-- Dimensionality reduction to 2D.
-- Scatter plot with clustering by `syndromeId`.
+- Reduces embedding dimensions to 2D.
+- Plots a scatter graph colored by syndrome.
 
 ### 🤖 Classification (KNN)
+- Performs 10-Fold Cross-Validation for `k` values from 1 to 15.
+- Compares **Euclidean** and **Cosine** distances.
 
-- 10-Fold Cross-Validation for `k` values from 1 to 15.
-- Comparison of **Euclidean** and **Cosine** distances.
+### 📈 Evaluation Metrics
+- **F1-Score** per fold.
+- **Top-k Accuracy** (like top-5 accuracy).
+- **Multi-class AUC** (One-vs-Rest comparison).
+- **Optional ROC Curves** for visualization.
 
-### 📈 Metrics and Evaluation
+## 🚀 Expected Results
 
-- **F1-Score** average per fold.
-- **Top-k Accuracy** (e.g., top-5).
-- **Multi-class AUC** (One-vs-Rest).
-- **Optional ROC Curves**.
+- Find the best `k` value for each distance metric.
+- Generate class distribution charts, t-SNE plots, and (optional) ROC Curves.
+- Print performance comparison tables for Euclidean vs. Cosine distance.
 
-## 📌 Expected Results
+## 🤔 What Could Be Better?
 
-- Best `k` value for each distance metric.
-- Class distribution charts, t-SNE, and (optional) ROC Curves.
-- Comparison between distance metrics (tables in terminal output).
+- **Normalize Embeddings**: Pre-process embeddings for better results.
+- **Try Other Models**: Experiment with SVM, Random Forest, or neural networks.
+- **Balance the Dataset**: Use oversampling/undersampling for imbalanced classes.
+- **Automate Everything**: Add a CI/CD pipeline, containerize with **Docker**, or expose as a **Flask/FastAPI API**.
+- **Improve Testing**: Write unit tests inside the `tests/` folder.
 
-## 🚀 Possible Improvements
+## ✨ Who Made This?
 
-- **Normalization**: Normalize embeddings before KNN.
-- **Other Models**: Test SVM, Random Forest, or neural networks.
-- **Data Balancing**: Oversampling/undersampling for unbalanced classes.
-- **Automation & Deployment**: Implement CI/CD pipeline, containerize with **Docker**, or expose API via **Flask/FastAPI**.
-- **Unit Testing**: Implement tests in the `tests/` folder.
+Author: [Leonardo Mucci](https://github.com/LeoMucci)
 
-## 📞 Credits and Contact
-
-Author: [Your Name](https://github.com/your-username)
-
-Feel free to contribute, suggest improvements, or report issues! 🚀
